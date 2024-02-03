@@ -1,0 +1,14 @@
+[build-system]
+requires = []
+build-backend = "setuptools.build_meta"
+
+[tool.poetry]
+name = "pagekey-docgen"
+version = "0.1.0"
+description = "Generate documentation sites for PageKey projects."
+authors = ["Steve G. <pagekeysolutions@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
