@@ -1,6 +1,12 @@
-from pagekey_docgen.cli import main
+from unittest.mock import patch
+
+import pytest
+from pagekey_docgen.cli import DocsDirNotFoundException, main
 
 
-def test_main():
-    docs_dir = "docs/"
-    main(docs_dir)
+@patch("os.path.exists", return_value=False)
+def test_main_fails_when_directory_dne(mock_exists):
+    docs_dir = ["docs/"]
+    with pytest.raises(DocsDirNotFoundException):
+        main(docs_dir)
+    mock_exists.assert_called()
