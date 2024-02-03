@@ -10,7 +10,9 @@ def get_files_list(path: str):
     """
     result = []
     for root, dirs, files in os.walk(path):
-        result.extend(files)
+        for cur_file in files:
+            cur_file_path = os.path.relpath(os.path.join(root, cur_file))
+            result.append(cur_file_path)
     return result
 
 def create_output_directory():

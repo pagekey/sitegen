@@ -8,8 +8,8 @@ from pagekey_docgen.core import (
 
 
 @patch('os.walk', return_value=[
-    ('.', ['folder1'], ['file1.txt']),
-    ('./folder1', [], ['file.txt']),
+    ('.', ['dir'], ['file1.txt']),
+    ('dir', [], ['file2.txt']),
 ])
 def test_get_files_list_returns_all_files_when_directory_exists(mock_walk):
     my_path = 'docs/'
@@ -17,7 +17,7 @@ def test_get_files_list_returns_all_files_when_directory_exists(mock_walk):
     mock_walk.assert_called_with(my_path)
     assert len(the_list) == 2
     assert 'file1.txt' in the_list
-    assert 'file.txt' in the_list
+    assert 'dir/file2.txt' in the_list
 
 @patch('os.makedirs')
 def test_create_output_directory_creates_single_directory(mock_mkdirs):
