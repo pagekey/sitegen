@@ -22,7 +22,8 @@ def remove_output_directory():
     
     Clean the project.
     """
-    shutil.rmtree('build')
+    if os.path.exists('build'):
+        shutil.rmtree('build')
 
 def render_file(path: str):
     """Render a docs file to the final HTML site.

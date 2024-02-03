@@ -25,9 +25,18 @@ def test_create_output_directory_creates_single_directory(mock_mkdirs):
     mock_mkdirs.assert_called_with('build')
 
 @patch('shutil.rmtree')
-def test_remove_output_directory_removes_directory(mock_rmtree):
+@patch("os.path.exists", return_value=True)
+def test_remove_output_directory_removes_directory_when_exists(mock_exists, mock_rmtree):
     remove_output_directory()
+    mock_exists.assert_called()
     mock_rmtree.assert_called_with('build')
+
+@patch('shutil.rmtree')
+@patch("os.path.exists", return_value=False)
+def test_remove_output_directory_does_nothing_when_directory_dne(mock_exists, mock_rmtree):
+    remove_output_directory()
+    mock_exists.assert_called()
+    mock_rmtree.assert_not_called()
 
 @patch('shutil.copy')
 def test_render_file_with_valid_file_adds_file_to_output_directory(mock_cp):
