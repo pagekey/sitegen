@@ -1,0 +1,2 @@
+[run]
+omit = src/pagekey_docgen/__main__.py
