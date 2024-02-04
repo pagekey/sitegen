@@ -4,8 +4,12 @@ from pagekey_docgen.core import (
     create_output_directory,
     remove_output_directory,
     render_file,
+    get_repo_root,
+    render_template,
 )
 
+
+MODULE_UNDER_TEST = 'pagekey_docgen.core'
 
 @patch('os.walk', return_value=[
     ('.', ['dir'], ['file1.txt']),
@@ -51,3 +55,16 @@ def test_render_file_with_nested_file_adds_file_to_output_directory(mock_cp, moc
     render_file(a_file)
     mock_mkdirs.assert_called_with('build/sphinx/subsystem', exist_ok=True)
     mock_cp.assert_called_with(a_file, 'build/sphinx/subsystem')
+
+def test_get_repo_root_returns_valid_path():
+    mock_file_path = "/path/to/mock/core.py"
+    with patch('__main__.__file__', mock_file_path):
+        the_root = get_repo_root(mock_file_path)
+        assert the_root == "/path/to/mock"
+
+@patch(f'{MODULE_UNDER_TEST}.get_repo_root', return_value='the_root')
+@patch('shutil.copy')
+def test_render_template_copies_file_when_valid(mock_cp, mock_get_repo_root):
+    render_template("Makefile")
+    mock_get_repo_root.assert_called()
+    mock_cp.assert_called_with('the_root/Makefile', 'build/sphinx/')

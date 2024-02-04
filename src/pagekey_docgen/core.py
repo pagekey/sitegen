@@ -46,3 +46,11 @@ def render_file(path: str):
     # Copy the file over
     # TODO / NOTE: eventually this will do templating too
     shutil.copy(path, dest_dir_relpath)
+
+def get_repo_root(cur_file=__file__):
+    return os.path.dirname(cur_file)
+
+def render_template(filename: str):
+    repo_root = get_repo_root()
+    src_path = os.path.join(repo_root, filename)
+    shutil.copy(src_path, 'build/sphinx/')
