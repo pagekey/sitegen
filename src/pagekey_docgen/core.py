@@ -48,9 +48,21 @@ def render_file(path: str):
     shutil.copy(path, dest_dir_relpath)
 
 def get_repo_root(cur_file=__file__):
+    """Get root directory of installed package.
+    
+    Useful for copying files within the package.
+    
+    Args:
+      cur_file: The value of __file__. Included as kwarg for testing purposes.  
+    """
     return os.path.dirname(cur_file)
 
 def render_template(filename: str):
+    """Render a template file.
+    
+    Args:
+      filename: Name of file within templates directory.
+    """
     repo_root = get_repo_root()
     src_path = os.path.join(repo_root, filename)
     shutil.copy(src_path, 'build/sphinx/')
