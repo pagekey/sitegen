@@ -8,6 +8,7 @@ from pagekey_docgen.core import (
     remove_output_directory,
     create_output_directory,
     render_file,
+    render_template,
 )
 
 
@@ -28,5 +29,10 @@ def main(args_list: List[str] = sys.argv[1:]):
 
     files = get_files_list(args.docs_dir)
 
+    # Render templates
+    for template in ['Makefile', 'make.bat', 'conf.py']:
+        render_template(template)
+
+    # Render source files
     for cur_file in files:
         render_file(cur_file)

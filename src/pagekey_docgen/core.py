@@ -64,5 +64,7 @@ def render_template(filename: str):
       filename: Name of file within templates directory.
     """
     repo_root = get_repo_root()
-    src_path = os.path.join(repo_root, filename)
+    src_path = os.path.join(repo_root, 'templates', filename)
+    if not os.path.exists('build/sphinx'):
+        os.makedirs('build/sphinx')
     shutil.copy(src_path, 'build/sphinx/')
