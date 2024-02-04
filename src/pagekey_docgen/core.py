@@ -45,4 +45,6 @@ def render_file(path: str):
     os.makedirs(dest_dir_relpath, exist_ok=True)
     # Copy the file over
     # TODO / NOTE: eventually this will do templating too
-    shutil.copy(path, dest_dir_relpath)
+    base, extension = os.path.splitext(os.path.basename(path))
+    dest_file = os.path.join(dest_dir_relpath, f'{base}.html')
+    shutil.copy(path, dest_file)
