@@ -7,10 +7,12 @@ name = "pagekey-docgen"
 version = "0.1.0"
 description = "Generate documentation sites for PageKey projects."
 authors = ["Steve G. <pagekeysolutions@gmail.com>"]
+include = ["src/pagekey_docgen/templates/*"]
 
 
 [tool.poetry.dependencies]
 python = "^3.8"
+sphinx = "^7.1.2"
 
 [tool.poetry.dev-dependencies]
 pytest = ">= 8.0.0"
