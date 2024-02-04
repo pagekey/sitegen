@@ -13,6 +13,9 @@ def test_main_fails_when_directory_dne(mock_exists):
         main(docs_dir)
     mock_exists.assert_called()
 
+@patch('shutil.move')
+@patch('os.system')
+@patch('os.chdir')
 @patch(f"{MODULE_UNDER_TEST}.render_template")
 @patch(f"{MODULE_UNDER_TEST}.render_file")
 @patch(f"{MODULE_UNDER_TEST}.get_files_list", return_value=[
@@ -29,6 +32,9 @@ def test_main_renders_each_file_when_directory_valid(
     mock_get_files_list,
     mock_render_file,
     mock_render_template,
+    mock_chdir,
+    mock_system,
+    mock_move,
 ):
     docs_dir = "docs/"
     main([docs_dir])
@@ -44,3 +50,8 @@ def test_main_renders_each_file_when_directory_valid(
     assert call("Makefile") in mock_render_template.call_args_list
     assert call("make.bat") in mock_render_template.call_args_list
     assert call("conf.py") in mock_render_template.call_args_list
+
+    # Should run `make html` to generate sphinx site
+    mock_chdir.assert_called_with('build/sphinx')
+    mock_system.assert_called_with('make html')
+    mock_move.assert_called_with('_build/html', '..')

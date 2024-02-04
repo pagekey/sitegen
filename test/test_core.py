@@ -67,4 +67,4 @@ def test_get_repo_root_returns_valid_path():
 def test_render_template_copies_file_when_valid(mock_cp, mock_get_repo_root):
     render_template("Makefile")
     mock_get_repo_root.assert_called()
-    mock_cp.assert_called_with('the_root/Makefile', 'build/sphinx/')
+    mock_cp.assert_called_with('the_root/templates/Makefile', 'build/sphinx/')

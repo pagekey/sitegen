@@ -1,5 +1,6 @@
 import argparse
 import os
+import shutil
 import sys
 from typing import List
 
@@ -36,3 +37,10 @@ def main(args_list: List[str] = sys.argv[1:]):
     # Render source files
     for cur_file in files:
         render_file(cur_file)
+
+    # Generate the Sphinx site
+    os.chdir('build/sphinx')
+    os.system('make html')
+
+    # Move the generated site to the top level of the build directory
+    shutil.move('_build/html', '..')
