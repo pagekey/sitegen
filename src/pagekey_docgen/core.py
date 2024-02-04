@@ -36,15 +36,13 @@ def render_file(path: str):
     dirname = os.path.dirname(path)
     if len(dirname) < 1:
         # File is at the top-level of the repo - keep it simple
-        dest_dir_relpath = 'build'
+        dest_dir_relpath = os.path.join('build', 'sphinx')
     else:
         # Handle nested files
         src_dir_relpath = os.path.relpath(os.path.dirname(path))
-        dest_dir_relpath = os.path.join('build', src_dir_relpath)
+        dest_dir_relpath = os.path.join('build', 'sphinx', src_dir_relpath)
     # Create directories containing this file if not exists
     os.makedirs(dest_dir_relpath, exist_ok=True)
     # Copy the file over
     # TODO / NOTE: eventually this will do templating too
-    base, extension = os.path.splitext(os.path.basename(path))
-    dest_file = os.path.join(dest_dir_relpath, f'{base}.html')
-    shutil.copy(path, dest_file)
+    shutil.copy(path, dest_dir_relpath)
