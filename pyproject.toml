@@ -13,10 +13,12 @@ include = ["src/pagekey_docgen/templates/*"]
 [tool.poetry.dependencies]
 python = "^3.8"
 sphinx = "^7.1.2"
+sphinx-rtd-theme = "^2.0.0"
+myst-parser = "^2.0.0"
 
 [tool.poetry.dev-dependencies]
-pytest = ">= 8.0.0"
-pytest-cov = ">= 4.1.0"
+pytest = "^8.0.0"
+pytest-cov = "^4.1.0"
 
 [tool.poetry.scripts]
 pagekey-docgen = "pagekey_docgen.cli:main"

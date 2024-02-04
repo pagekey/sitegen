@@ -10,6 +10,7 @@ Welcome to PROJECT_NAME_HERE's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   subsystem/index.md
 
 
 Indices and tables
