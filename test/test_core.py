@@ -1,4 +1,4 @@
-from unittest.mock import patch
+from unittest.mock import mock_open, patch
 from pagekey_docgen.core import (
     get_files_list,
     create_output_directory,
@@ -6,6 +6,7 @@ from pagekey_docgen.core import (
     render_file,
     get_repo_root,
     render_template,
+    get_file_as_string,
 )
 
 
@@ -64,7 +65,16 @@ def test_get_repo_root_returns_valid_path():
 
 @patch(f'{MODULE_UNDER_TEST}.get_repo_root', return_value='the_root')
 @patch('shutil.copy')
-def test_render_template_copies_file_when_valid(mock_cp, mock_get_repo_root):
+def test_render_template_works_when_file_valid(mock_cp, mock_get_repo_root):
     render_template("Makefile")
     mock_get_repo_root.assert_called()
     mock_cp.assert_called_with('the_root/templates/Makefile', 'build/sphinx/')
+
+@patch('builtins.open', new_callable=mock_open, read_data='Mocked file content')
+def test_get_file_as_string(mock_file_open):
+    filename = "my_file.txt"
+
+    file_content = get_file_as_string("my_file.txt")
+
+    mock_file_open.assert_called_once_with(filename, 'r')
+    assert file_content == 'Mocked file content'

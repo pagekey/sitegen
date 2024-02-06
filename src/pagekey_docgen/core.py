@@ -68,3 +68,7 @@ def render_template(filename: str):
     if not os.path.exists('build/sphinx'):
         os.makedirs('build/sphinx')
     shutil.copy(src_path, 'build/sphinx/')
+
+def get_file_as_string(filename: str):
+    with open(filename, 'r') as file:
+        return file.read()
