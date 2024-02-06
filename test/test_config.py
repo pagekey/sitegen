@@ -1,5 +1,13 @@
-from pagekey_docgen.config import load_config
+from pagekey_docgen.config import PageKeySite, load_config
 
+
+def get_fake_config():
+    return PageKeySite(
+        project="The Project",
+        copyright="The Copyright",
+        author="The Author",
+        release="The Release",
+    )
 
 def test_load_config_works_with_valid_string():
     yaml_config = """

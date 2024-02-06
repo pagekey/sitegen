@@ -1,5 +1,8 @@
 import os
 import shutil
+from jinja2 import Template
+
+from pagekey_docgen.config import PageKeySite
 
 
 def get_files_list(path: str):
@@ -57,7 +60,7 @@ def get_repo_root(cur_file=__file__):
     """
     return os.path.dirname(cur_file)
 
-def render_template(filename: str):
+def render_template(filename: str, config: PageKeySite):
     """Render a template file.
     
     Args:
@@ -67,8 +70,15 @@ def render_template(filename: str):
     src_path = os.path.join(repo_root, 'templates', filename)
     if not os.path.exists('build/sphinx'):
         os.makedirs('build/sphinx')
-    shutil.copy(src_path, 'build/sphinx/')
+    file_contents = get_file_as_string(src_path)
+    template = Template(file_contents)
+    output_string = template.render(config=config)
+    write_string_to_file(output_string)
 
 def get_file_as_string(filename: str):
     with open(filename, 'r') as file:
         return file.read()
+
+def write_string_to_file(filename: str, data: str):
+    with open(filename, 'w') as file:
+        file.write(data)
