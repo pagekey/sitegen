@@ -3,8 +3,10 @@ import os
 import shutil
 import sys
 from typing import List
+from pagekey_docgen.config import load_config
 
 from pagekey_docgen.core import (
+    get_file_as_string,
     get_files_list,
     remove_output_directory,
     create_output_directory,
@@ -30,9 +32,14 @@ def main(args_list: List[str] = sys.argv[1:]):
 
     files = get_files_list(args.docs_dir)
 
+    # Grab config
+    config_path = os.path.join(args.docs_dir, 'site.yaml')
+    config_raw = get_file_as_string(config_path)
+    config = load_config(config_raw)
+
     # Render templates
     for template in ['Makefile', 'make.bat', 'conf.py']:
-        render_template(template)
+        render_template(template, config)
 
     # Render source files
     for cur_file in files:
