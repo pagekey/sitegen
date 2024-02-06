@@ -74,7 +74,7 @@ def test_render_template_works_when_file_valid(mock_get_repo_root, mock_write_st
         render_template("Makefile", fake_config)
         mock_get_repo_root.assert_called()
         mock_get_file_as_string.assert_called_with('the_root/templates/Makefile')
-        mock_write_string_to_file.assert_called_with(fake_config.author + ' is the author')
+        mock_write_string_to_file.assert_called_with('build/sphinx/Makefile', fake_config.author + ' is the author')
 
 @patch('builtins.open', new_callable=mock_open, read_data='Mocked file content')
 def test_get_file_as_string(mock_file_open):
@@ -93,4 +93,4 @@ def test_write_string_to_file(mock_file_open):
     write_string_to_file(filename, data)
 
     mock_file_open.assert_called_with(filename, 'w')
-    mock_file_open.return_value.write.assert_called_once_with(data)    
+    mock_file_open.return_value.write.assert_called_once_with(data)

@@ -68,12 +68,13 @@ def render_template(filename: str, config: PageKeySite):
     """
     repo_root = get_repo_root()
     src_path = os.path.join(repo_root, 'templates', filename)
+    dest_path = os.path.join('build', 'sphinx', os.path.basename(filename))
     if not os.path.exists('build/sphinx'):
         os.makedirs('build/sphinx')
     file_contents = get_file_as_string(src_path)
     template = Template(file_contents)
     output_string = template.render(config=config)
-    write_string_to_file(output_string)
+    write_string_to_file(dest_path, output_string)
 
 def get_file_as_string(filename: str):
     with open(filename, 'r') as file:
