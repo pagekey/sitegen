@@ -1,0 +1,5 @@
+project: 'Sample Project'
+copyright: '2024, Steve'
+author: 'Steve'
+release: 'This Release'
+package: '../../../my_code'
