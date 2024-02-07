@@ -1,5 +1,5 @@
 pages:
-  scripts:
+  script:
     - poetry install
     - cd docs
     - poetry run pagekey-docgen .
