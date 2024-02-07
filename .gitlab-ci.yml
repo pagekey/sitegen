@@ -1,4 +1,42 @@
+stages:
+  - version
+  - test
+  - docs
+  - build
+  - publish
+
+# Version stage
+.semantic-release:
+  stage: version
+  image: node:20
+  script:
+    - npm i @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/git
+    - if [ -z "$DRY_RUN" ]; then
+    - npx semantic-release
+    - else
+    - npx semantic-release --dry-run
+    - fi
+
+semantic-release-dry-run:
+  extends: .semantic-release
+  except: [main, tags]
+  variables:
+    DRY_RUN: "true"
+
+semantic-release:
+  extends: .semantic-release
+  only: [main]
+
+# Test stage
+pytest:
+  stage: test
+  image: python:3.8
+  script:
+    - pytest
+
+# Docs stage
 .pages:
+  stage: docs
   image: python:3.8
   script:
     - pip install poetry
@@ -18,23 +56,15 @@ pages:
   extends: .pages
   only: [main]
 
-
-.semantic-release:
-  image: node:20
+# Build stage
+build-wheel:
+  stage: build
   script:
-    - npm i @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/git
-    - if [ -z "$DRY_RUN" ]; then
-    - npx semantic-release
-    - else
-    - npx semantic-release --dry-run
-    - fi
+    - echo hi
 
-semantic-release-dry-run:
-  extends: .semantic-release
-  except: [main, tags]
-  variables:
-    DRY_RUN: "true"
-
-semantic-release:
-  extends: .semantic-release
-  only: [main]
+# Publish stage
+twine:
+  stage: publish
+  # only: [tags]
+  script:
+    - echo hi
