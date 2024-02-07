@@ -1,11 +1,11 @@
-Welcome to Sample Project's documentation!
+Welcome to PageKey Docgen's documentation!
 =============================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   subsystem/index.md
+   architecture/index.md
 
 
 Indices and tables

@@ -1,0 +1,5 @@
+project: 'PageKey Docgen'
+copyright: '2024, PageKey'
+author: 'Steve'
+release: 'latest'
+package: '../../../src'
