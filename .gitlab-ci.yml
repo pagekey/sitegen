@@ -17,3 +17,9 @@ pages-dev:
 pages:
   extends: .pages
   only: [main]
+
+
+semantic-release:
+  image: node:18.19
+  script:
+    - npx semantic-release
