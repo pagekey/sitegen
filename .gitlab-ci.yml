@@ -62,11 +62,22 @@ pages:
 build-wheel:
   stage: build
   script:
-    - echo hi
+    - pip install poetry
+    - poetry install
+    - poetry build
+  artifacts:
+    paths:
+      - dist/
 
 # Publish stage
 twine:
   stage: publish
   # only: [tags]
+  needs: [build-wheel]
+  allow_failure: true
   script:
-    - echo hi
+    - if [ -z "$TWINE_USERNAME" ] || [ -z "$TWINE_PASSWORD" ]; then
+    - echo You must define TWINE_USERNAME and TWINE_PASSWORD environment variables.
+    - fi
+    - pip install twine
+    - twine upload --repository-url https://test.pypi.org/legacy dist/*
