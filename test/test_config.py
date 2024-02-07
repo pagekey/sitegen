@@ -7,6 +7,7 @@ def get_fake_config():
         copyright="The Copyright",
         author="The Author",
         release="The Release",
+        package='the_package',
     )
 
 def test_load_config_works_with_valid_string():
@@ -15,6 +16,7 @@ def test_load_config_works_with_valid_string():
         copyright: '2024, AUTHOR_NAME_HERE'
         author: 'AUTHOR_NAME_HERE'
         release: 'PROJECT_RELEASE_HERE'
+        package: 'the_package'
     """
     config = load_config(yaml_config)
 
@@ -22,3 +24,4 @@ def test_load_config_works_with_valid_string():
     assert config.copyright == '2024, AUTHOR_NAME_HERE'
     assert config.author == 'AUTHOR_NAME_HERE'
     assert config.release == 'PROJECT_RELEASE_HERE'
+    assert config.package == 'the_package'
