@@ -5,58 +5,58 @@ stages:
   - build
   - publish
 
-# Version stage
-.semantic-release:
-  stage: version
-  image: node:20
-  script:
-    - npm i @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/git
-    - if [ -z "$DRY_RUN" ]; then
-    - npx semantic-release
-    - else
-    - npx semantic-release --dry-run
-    - fi
+# # Version stage
+# .semantic-release:
+#   stage: version
+#   image: node:20
+#   script:
+#     - npm i @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/git
+#     - if [ -z "$DRY_RUN" ]; then
+#     - npx semantic-release
+#     - else
+#     - npx semantic-release --dry-run
+#     - fi
 
-semantic-release-dry-run:
-  extends: .semantic-release
-  except: [main, tags]
-  variables:
-    DRY_RUN: "true"
+# semantic-release-dry-run:
+#   extends: .semantic-release
+#   except: [main, tags]
+#   variables:
+#     DRY_RUN: "true"
 
-semantic-release:
-  extends: .semantic-release
-  only: [main]
+# semantic-release:
+#   extends: .semantic-release
+#   only: [main]
 
-# Test stage
-pytest:
-  stage: test
-  image: python:3.8
-  script:
-    - pip install poetry
-    - poetry install
-    - poetry run pytest
+# # Test stage
+# pytest:
+#   stage: test
+#   image: python:3.8
+#   script:
+#     - pip install poetry
+#     - poetry install
+#     - poetry run pytest
 
-# Docs stage
-.pages:
-  stage: docs
-  image: python:3.8
-  script:
-    - pip install poetry
-    - poetry install
-    - cd docs
-    - poetry run pagekey-docgen .
-    - rm -rf public
-    - cd ..
-    - mv docs/build/html public
-  artifacts:
-    paths:
-      - public
-pages-dev:
-  extends: .pages
-  except: [main]
-pages:
-  extends: .pages
-  only: [main]
+# # Docs stage
+# .pages:
+#   stage: docs
+#   image: python:3.8
+#   script:
+#     - pip install poetry
+#     - poetry install
+#     - cd docs
+#     - poetry run pagekey-docgen .
+#     - rm -rf public
+#     - cd ..
+#     - mv docs/build/html public
+#   artifacts:
+#     paths:
+#       - public
+# pages-dev:
+#   extends: .pages
+#   except: [main]
+# pages:
+#   extends: .pages
+#   only: [main]
 
 # Build stage
 build-wheel:
@@ -82,4 +82,4 @@ twine:
     - echo You must define TWINE_USERNAME and TWINE_PASSWORD environment variables.
     - fi
     - pip install twine
-    - twine upload --repository-url https://test.pypi.org/legacy/ --username "$TWINE_USERNAME" --password "$TWINE_PASSWORD" dist/*
+    - twine upload --repository-url https://test.pypi.org/legacy/ --username $TWINE_USERNAME --password $TWINE_PASSWORD dist/*
