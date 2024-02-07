@@ -19,8 +19,22 @@ pages:
   only: [main]
 
 
-semantic-release:
+.semantic-release:
   image: node:20
   script:
     - npm i @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/git
+    - if [ -z "$DRY_RUN" ]; then
     - npx semantic-release
+    - else
+    - npx semantic-release --dry-run
+    - fi
+
+semantic-release-dry-run:
+  extends: .semantic-release
+  except: [main, tags]
+  variables:
+    DRY_RUN: "true"
+
+semantic-release:
+  extends: .semantic-release
+  only: [main]
