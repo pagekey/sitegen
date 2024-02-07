@@ -4,7 +4,9 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "pagekey-docgen"
-version = "0.1.0"
+# Note: Version will be 0.0.0 for all local builds.
+# Will be replaced with actual version at build time in CI/CD.
+version = "0.0.0"
 description = "Generate documentation sites for PageKey projects."
 authors = ["Steve G. <pagekeysolutions@gmail.com>"]
 include = ["src/pagekey_docgen/templates/*"]
