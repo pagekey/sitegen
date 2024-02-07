@@ -61,6 +61,7 @@ pages:
 # Build stage
 build-wheel:
   stage: build
+  image: python:3.8
   script:
     - pip install poetry
     - poetry install
@@ -72,6 +73,7 @@ build-wheel:
 # Publish stage
 twine:
   stage: publish
+  image: python:3.8
   # only: [tags]
   needs: [build-wheel]
   allow_failure: true
