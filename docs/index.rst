@@ -6,6 +6,7 @@ Welcome to PageKey Docgen's documentation!
    :caption: Contents:
 
    architecture/index.md
+   CHANGELOG.md
 
 
 Indices and tables
