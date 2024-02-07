@@ -22,4 +22,5 @@ pages:
 semantic-release:
   image: node:20
   script:
+    - npm i @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/git
     - npx semantic-release
