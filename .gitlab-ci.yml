@@ -74,7 +74,7 @@ build-wheel:
 twine:
   stage: publish
   image: python:3.8
-  only: [tags]
+  # only: [tags]
   needs: [build-wheel]
   script:
     # Replace version in pyproject.toml
