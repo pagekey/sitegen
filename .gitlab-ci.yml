@@ -1,4 +1,4 @@
-pages:
+.pages:
   image: python:3.8
   script:
     - pip install poetry
@@ -11,3 +11,9 @@ pages:
   artifacts:
     paths:
       - public
+pages-dev:
+  extends: .pages
+  except: [main]
+pages:
+  extends: .pages
+  only: [main]
