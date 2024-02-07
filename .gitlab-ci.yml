@@ -6,6 +6,7 @@ pages:
     - cd docs
     - poetry run pagekey-docgen .
     - rm -rf public
+    - find .
     - mv docs/build/html public
   artifacts:
     paths:
