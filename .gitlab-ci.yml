@@ -82,4 +82,4 @@ twine:
     - echo You must define TWINE_USERNAME and TWINE_PASSWORD environment variables.
     - fi
     - pip install twine
-    - twine upload --repository-url https://test.pypi.org/legacy dist/*
+    - twine upload --repository-url https://test.pypi.org/legacy/ --username "$TWINE_USERNAME" --password "$TWINE_PASSWORD" dist/*
