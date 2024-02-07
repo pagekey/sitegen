@@ -1,0 +1,10 @@
+pages:
+  scripts:
+    - poetry install
+    - cd docs
+    - poetry run pagekey-docgen .
+    - rm -rf public
+    - mv docs/build/html public
+  artifacts:
+    paths:
+      - public
