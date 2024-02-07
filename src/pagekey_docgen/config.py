@@ -7,6 +7,7 @@ class PageKeySite(BaseModel):
     copyright: str
     author: str
     release: str
+    package: str
 
 def load_config(yaml_config: str):
     parsed_config = yaml.safe_load(yaml_config)

@@ -17,6 +17,7 @@ release = '{{ config.release }}'
 extensions = [
     'myst_parser',
     'sphinx.ext.autodoc',
+    'autoapi.extension',
 ]
 
 templates_path = ['_templates']
@@ -36,3 +37,7 @@ source_suffix = {
     '.rst': 'restructuredtext',
     '.md': 'markdown',
 }
+
+autoapi_dirs = [
+    '{{ config.package }}'
+]
