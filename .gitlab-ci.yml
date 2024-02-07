@@ -32,7 +32,9 @@ pytest:
   stage: test
   image: python:3.8
   script:
-    - pytest
+    - pip install poetry
+    - poetry install
+    - poetry run pytest
 
 # Docs stage
 .pages:
