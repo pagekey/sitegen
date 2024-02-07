@@ -83,9 +83,9 @@ twine:
   needs: [build-wheel]
   script:
     # Check if credential variables are set
-    - if [ -z "$TWINE_USERNAME" ] || [ -z "$TWINE_PASSWORD" ]; then
-    - echo You must define TWINE_USERNAME and TWINE_PASSWORD environment variables.
+    - if [ -z "$TWINE_REPOSITORY" ] || [ -z "$TWINE_USERNAME" ] || [ -z "$TWINE_PASSWORD" ]; then
+    - echo You must define TWINE_REPOSITORY, TWINE_USERNAME, and TWINE_PASSWORD environment variables.
     - fi
     # Install and run twine
     - pip install twine
-    - twine upload --repository-url https://test.pypi.org/legacy/ --username $TWINE_USERNAME --password $TWINE_PASSWORD dist/*
+    - twine upload --repository-url $TWINE_REPOSITORY --username $TWINE_USERNAME --password $TWINE_PASSWORD dist/*
