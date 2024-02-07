@@ -1,5 +1,7 @@
 pages:
+  image: python:3.8
   script:
+    - pip install poetry
     - poetry install
     - cd docs
     - poetry run pagekey-docgen .
