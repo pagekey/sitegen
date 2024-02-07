@@ -20,6 +20,6 @@ pages:
 
 
 semantic-release:
-  image: node:18.19
+  image: node:20
   script:
     - npx semantic-release
