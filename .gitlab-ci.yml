@@ -1,18 +1,18 @@
 include:
-  - project: pagekeystreaming/cicd
-    ref: 1-add-cicd-stuff
+  - project: pagekey/libs/cicd
+    ref: main
     file: 01-version/semantic-release.yaml
-  - project: pagekeystreaming/cicd
-    ref: 1-add-cicd-stuff
+  - project: pagekey/libs/cicd
+    ref: main
     file: 02-test/pytest.yaml
-  - project: pagekeystreaming/cicd
-    ref: 1-add-cicd-stuff
+  - project: pagekey/libs/cicd
+    ref: main
     file: 03-docs/docgen.yaml
-  - project: pagekeystreaming/cicd
-    ref: 1-add-cicd-stuff
+  - project: pagekey/libs/cicd
+    ref: main
     file: 04-build/wheel.yaml
-  - project: pagekeystreaming/cicd
-    ref: 1-add-cicd-stuff
+  - project: pagekey/libs/cicd
+    ref: main
     file: 05-publish/twine.yaml
 
 stages:
