@@ -19,6 +19,7 @@ extensions = [
     'myst_parser',
     'sphinx.ext.autodoc',
     'autoapi.extension',
+    'sphinxcontrib.mermaid',
 ]
 
 templates_path = ['_templates']
