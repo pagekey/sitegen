@@ -1,3 +1,10 @@
+## [1.0.1](https://gitlab.com/pagekey/libs/pagekey-docgen/compare/1.0.0...1.0.1) (2024-02-08)
+
+
+### Bug Fixes
+
+* Add mermaid support to Sphinx ([92874f9](https://gitlab.com/pagekey/libs/pagekey-docgen/commit/92874f970df36da37a7dda544cf078738c797dab)), closes [#5](https://gitlab.com/pagekey/libs/pagekey-docgen/issues/5)
+
 # 1.0.0 (2024-02-07)
 
 
