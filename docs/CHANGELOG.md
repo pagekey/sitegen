@@ -1,3 +1,10 @@
+## [1.0.2](https://gitlab.com/pagekey/libs/pagekey-docgen/compare/1.0.1...1.0.2) (2024-02-22)
+
+
+### Bug Fixes
+
+* Switch to furo theme, add mermaid replace ([03ad514](https://gitlab.com/pagekey/libs/pagekey-docgen/commit/03ad514873395e0f4da7e2392aecee2842368392))
+
 ## [1.0.1](https://gitlab.com/pagekey/libs/pagekey-docgen/compare/1.0.0...1.0.1) (2024-02-08)
 
 
