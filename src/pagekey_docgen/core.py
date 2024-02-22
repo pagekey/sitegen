@@ -1,3 +1,4 @@
+import fileinput
 import os
 import shutil
 from jinja2 import Template
@@ -49,6 +50,11 @@ def render_file(path: str):
     # Copy the file over
     # TODO / NOTE: eventually this will do templating too
     shutil.copy(path, dest_dir_relpath)
+    # Replace mermaid code blocks in md with sphinx-compatible ones
+    dest_file = os.path.join(dest_dir_relpath, os.path.basename(path))
+    with fileinput.FileInput(dest_file, inplace=True, backup='.bak') as file:
+        for line in file:
+            print(line.replace('```mermaid', '```{mermaid}'), end='')
 
 def get_repo_root(cur_file=__file__):
     """Get root directory of installed package.
