@@ -1,3 +1,10 @@
+## [1.0.3](https://gitlab.com/pagekey/libs/pagekey-docgen/compare/1.0.2...1.0.3) (2024-02-27)
+
+
+### Bug Fixes
+
+* Update pytest cases not to fail ([9c0f25e](https://gitlab.com/pagekey/libs/pagekey-docgen/commit/9c0f25e31eafebeb6cb9ade687e9d46e95451952))
+
 ## [1.0.2](https://gitlab.com/pagekey/libs/pagekey-docgen/compare/1.0.1...1.0.2) (2024-02-22)
 
 
