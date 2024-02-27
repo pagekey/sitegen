@@ -52,9 +52,10 @@ def render_file(path: str):
     shutil.copy(path, dest_dir_relpath)
     # Replace mermaid code blocks in md with sphinx-compatible ones
     dest_file = os.path.join(dest_dir_relpath, os.path.basename(path))
-    with fileinput.FileInput(dest_file, inplace=True, backup='.bak') as file:
-        for line in file:
-            print(line.replace('```mermaid', '```{mermaid}'), end='')
+    if dest_file.endswith('.md'):
+        with fileinput.FileInput(dest_file, inplace=True, backup='.bak') as file:
+            for line in file:
+                print(line.replace('```mermaid', '```{mermaid}'), end='')
 
 def get_repo_root(cur_file=__file__):
     """Get root directory of installed package.

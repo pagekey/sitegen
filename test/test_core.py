@@ -45,15 +45,17 @@ def test_remove_output_directory_does_nothing_when_directory_dne(mock_exists, mo
     mock_exists.assert_called()
     mock_rmtree.assert_not_called()
 
+@patch(f'{MODULE_UNDER_TEST}.fileinput')
 @patch('shutil.copy')
-def test_render_file_with_valid_file_adds_file_to_output_directory(mock_cp):
+def test_render_file_with_valid_file_adds_file_to_output_directory(mock_cp, mock_fileinput):
     a_file = 'index.md'
     render_file(a_file)
     mock_cp.assert_called_with(a_file, 'build/sphinx')
 
+@patch(f'{MODULE_UNDER_TEST}.fileinput')
 @patch('os.makedirs')
 @patch('shutil.copy')
-def test_render_file_with_nested_file_adds_file_to_output_directory(mock_cp, mock_mkdirs):
+def test_render_file_with_nested_file_adds_file_to_output_directory(mock_cp, mock_mkdirs, mock_fileinput):
     a_file = 'subsystem/index.md'
     render_file(a_file)
     mock_mkdirs.assert_called_with('build/sphinx/subsystem', exist_ok=True)
