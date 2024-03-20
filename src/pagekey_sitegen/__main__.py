@@ -1,4 +1,4 @@
-from pagekey_docgen.cli import main
+from pagekey_sitegen.cli import main
 
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
 from unittest.mock import mock_open, patch
-from pagekey_docgen.core import (
+from pagekey_sitegen.core import (
     get_files_list,
     create_output_directory,
     remove_output_directory,
@@ -12,7 +12,7 @@ from pagekey_docgen.core import (
 from test.test_config import get_fake_config
 
 
-MODULE_UNDER_TEST = 'pagekey_docgen.core'
+MODULE_UNDER_TEST = 'pagekey_sitegen.core'
 
 @patch('os.walk', return_value=[
     ('.', ['dir'], ['file1.txt']),

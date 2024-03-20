@@ -1,4 +1,4 @@
-Welcome to PageKey Docgen's documentation!
+Welcome to PageKey Sitegen's documentation!
 =============================================
 
 .. toctree::

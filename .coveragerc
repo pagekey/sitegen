@@ -1,2 +1,2 @@
 [run]
-omit = src/pagekey_docgen/__main__.py
+omit = src/pagekey_sitegen/__main__.py

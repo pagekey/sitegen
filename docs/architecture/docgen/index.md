@@ -31,7 +31,7 @@ We need a common documentation site generator for all of the PageKey projects th
 
 ### Goals
 
-- Define how the docgen works.
+- Define how the sitegen works.
 
 ### Non-Goals
 

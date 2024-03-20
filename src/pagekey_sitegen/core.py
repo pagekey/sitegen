@@ -3,7 +3,7 @@ import os
 import shutil
 from jinja2 import Template
 
-from pagekey_docgen.config import PageKeySite
+from pagekey_sitegen.config import PageKeySite
 
 
 def get_files_list(path: str):

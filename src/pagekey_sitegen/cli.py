@@ -3,9 +3,9 @@ import os
 import shutil
 import sys
 from typing import List
-from pagekey_docgen.config import load_config
+from pagekey_sitegen.config import load_config
 
-from pagekey_docgen.core import (
+from pagekey_sitegen.core import (
     get_file_as_string,
     get_files_list,
     remove_output_directory,
@@ -19,7 +19,7 @@ class DocsDirNotFoundException(Exception):
     pass
 
 def main(args_list: List[str] = sys.argv[1:]):
-    parser = argparse.ArgumentParser(prog='pagekey-docgen', description='Generate documentation site from directory.')
+    parser = argparse.ArgumentParser(prog='pagekey-sitegen', description='Generate documentation site from directory.')
     parser.add_argument('docs_dir', metavar='docs_dir', type=str, help='The path to the documents directory')
 
     args = parser.parse_args(args_list)
