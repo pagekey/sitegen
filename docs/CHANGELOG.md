@@ -1,3 +1,5 @@
+# [2.0.0](https://gitlab.com/pagekey/libs/pagekey-docgen/compare/1.0.3...2.0.0) (2024-03-20)
+
 ## [1.0.3](https://gitlab.com/pagekey/libs/pagekey-docgen/compare/1.0.2...1.0.3) (2024-02-27)
 
 
