@@ -1,4 +1,4 @@
-from pagekey_docgen.config import PageKeySite, load_config
+from pagekey_sitegen.config import PageKeySite, load_config
 
 
 def get_fake_config():

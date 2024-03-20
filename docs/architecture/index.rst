@@ -7,7 +7,7 @@ These documents propose how the system should work, and after they are implement
    :maxdepth: 2
    :caption: Contents:
 
-   docgen/index.md
+   sitegen/index.md
 
 
 Indices and tables
