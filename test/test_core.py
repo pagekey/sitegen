@@ -1,5 +1,5 @@
 from unittest.mock import mock_open, patch
-from pagekey_sitegen.core import (
+from pagekey_sitegen.util import (
     get_files_list,
     create_output_directory,
     remove_output_directory,
