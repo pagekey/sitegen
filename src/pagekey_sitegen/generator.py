@@ -42,16 +42,20 @@ class SiteGenerator:
         package_root = os.path.dirname(pagekey_sitegen.__file__)
         self.templates_dir = os.path.join(package_root, 'templates', self.config.template.value)
     def generate(self):
+        # Get a fresh build dir
         if os.path.exists('build'):
             shutil.rmtree('build')
         os.makedirs('build')
-        # Render templates
+
+        # Walk directories to get file lists
         template_files = get_files_list(self.templates_dir)
+        source_files = get_files_list(self.path)
+
+        # Render templates
         for template in template_files:
-            self.render_template(os.path.abspath(template))
+            self.render_template(template)
 
         # Render source files
-        source_files = get_files_list(self.path)
         for cur_file in source_files:
             self.render_source(cur_file)
 
@@ -64,14 +68,20 @@ class SiteGenerator:
         elif self.config.template == TemplateName.NEXT:
             print("TODO generate next static export here")
     def render_template(self, filename: str):
-        src_path = os.path.join(self.templates_dir, self.config.template.value, filename)
-        dest_path = os.path.join('build', self.config.template.value, os.path.basename(filename))
-        if not os.path.exists(f'build/{self.config.template.value}'):
-            os.makedirs(f'build/{self.config.template.value}')
-        file_contents = get_file_as_string(src_path)
+        src_filename = filename
+        relative_template_path = filename.replace(self.templates_dir + '/', '')
+        dest_filename = os.path.join('build', self.config.template.value, relative_template_path)
+        
+        dest_dir = os.path.dirname(dest_filename)
+        if not os.path.exists(dest_dir):
+            os.makedirs(dest_dir)
+        
+        file_contents = get_file_as_string(src_filename)
+        
         template = Template(file_contents)
         output_string = template.render(config=self.config)
-        write_string_to_file(dest_path, output_string)
+        write_string_to_file(dest_filename, output_string)
+    
     def render_source(self, filename: str):
         dirname = os.path.dirname(filename)
         if len(dirname) < 1:
@@ -104,7 +114,7 @@ def get_files_list(path: str):
     result = []
     for root, dirs, files in os.walk(path):
         for cur_file in files:
-            cur_file_path = os.path.relpath(os.path.join(root, cur_file))
+            cur_file_path = os.path.abspath(os.path.join(root, cur_file))
             result.append(cur_file_path)
     return result
 
