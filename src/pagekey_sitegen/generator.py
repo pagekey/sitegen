@@ -66,7 +66,11 @@ class SiteGenerator:
             # Move the generated site to the top level of the build directory
             shutil.move('_build/html', '..')
         elif self.config.template == TemplateName.NEXT:
-            print("TODO generate next static export here")
+            os.system('npm i')
+            os.system('npm run build')
+            os.system('npm run export')
+            shutil.move('out', '../html')
+    
     def render_template(self, filename: str):
         src_filename = filename
         relative_template_path = filename.replace(self.templates_dir + '/', '')
@@ -90,7 +94,15 @@ class SiteGenerator:
         else:
             # Handle nested files
             src_dir_relpath = os.path.relpath(os.path.dirname(filename))
-            dest_dir_relpath = os.path.join('build', self.config.template.value, src_dir_relpath)
+            if self.config.template == TemplateName.SPHINX:
+                dest_dir_relpath = os.path.join('build', self.config.template.value, src_dir_relpath)
+            elif self.config.template == TemplateName.NEXT:
+                # For Next, copy files into either src/pages or src/lib
+                if src_dir_relpath.startswith('lib'):
+                    dest_dir_relpath = os.path.join('build', self.config.template.value, 'src', src_dir_relpath)
+                else:
+                    dest_dir_relpath = os.path.join('build', self.config.template.value, 'src', 'pages', src_dir_relpath)
+        
         # Create directories containing this file if not exists
         os.makedirs(dest_dir_relpath, exist_ok=True)
         # Copy the file over
