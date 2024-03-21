@@ -1,0 +1,7 @@
+project: 'Sample Next Site'
+copyright: '2024, Steve'
+author: 'Steve'
+release: 'This Release'
+package: '../../../my_code'
+template:
+  name: next

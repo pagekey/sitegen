@@ -74,7 +74,7 @@ def render_template(filename: str, config: PageKeySite):
       filename: Name of file within templates directory.
     """
     repo_root = get_repo_root()
-    src_path = os.path.join(repo_root, 'templates', filename)
+    src_path = os.path.join(repo_root, 'templates', 'sphinx', filename)
     dest_path = os.path.join('build', 'sphinx', os.path.basename(filename))
     if not os.path.exists('build/sphinx'):
         os.makedirs('build/sphinx')
