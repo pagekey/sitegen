@@ -3,7 +3,7 @@ import os
 import shutil
 from jinja2 import Template
 
-from pagekey_sitegen.config import PageKeySite
+from pagekey_sitegen.config import PageKeySite, TemplateName
 
 
 def get_files_list(path: str):
@@ -31,7 +31,7 @@ def remove_output_directory():
     if os.path.exists('build'):
         shutil.rmtree('build')
 
-def render_file(path: str):
+def render_file(path: str, config: PageKeySite):
     """Render a docs file to the final HTML site.
 
     Args:
@@ -40,22 +40,23 @@ def render_file(path: str):
     dirname = os.path.dirname(path)
     if len(dirname) < 1:
         # File is at the top-level of the repo - keep it simple
-        dest_dir_relpath = os.path.join('build', 'sphinx')
+        dest_dir_relpath = os.path.join('build', config.template.value)
     else:
         # Handle nested files
         src_dir_relpath = os.path.relpath(os.path.dirname(path))
-        dest_dir_relpath = os.path.join('build', 'sphinx', src_dir_relpath)
+        dest_dir_relpath = os.path.join('build', config.template.value, src_dir_relpath)
     # Create directories containing this file if not exists
     os.makedirs(dest_dir_relpath, exist_ok=True)
     # Copy the file over
     # TODO / NOTE: eventually this will do templating too
     shutil.copy(path, dest_dir_relpath)
-    # Replace mermaid code blocks in md with sphinx-compatible ones
-    dest_file = os.path.join(dest_dir_relpath, os.path.basename(path))
-    if dest_file.endswith('.md'):
-        with fileinput.FileInput(dest_file, inplace=True, backup='.bak') as file:
-            for line in file:
-                print(line.replace('```mermaid', '```{mermaid}'), end='')
+    if config.template == TemplateName.SPHINX:
+        # Replace mermaid code blocks in md with sphinx-compatible ones
+        dest_file = os.path.join(dest_dir_relpath, os.path.basename(path))
+        if dest_file.endswith('.md'):
+            with fileinput.FileInput(dest_file, inplace=True, backup='.bak') as file:
+                for line in file:
+                    print(line.replace('```mermaid', '```{mermaid}'), end='')
 
 def get_repo_root(cur_file=__file__):
     """Get root directory of installed package.
@@ -74,10 +75,10 @@ def render_template(filename: str, config: PageKeySite):
       filename: Name of file within templates directory.
     """
     repo_root = get_repo_root()
-    src_path = os.path.join(repo_root, 'templates', 'sphinx', filename)
-    dest_path = os.path.join('build', 'sphinx', os.path.basename(filename))
-    if not os.path.exists('build/sphinx'):
-        os.makedirs('build/sphinx')
+    src_path = os.path.join(repo_root, 'templates', config.template.value, filename)
+    dest_path = os.path.join('build', config.template.value, os.path.basename(filename))
+    if not os.path.exists(f'build/{config.template.value}'):
+        os.makedirs(f'build/{config.template.value}')
     file_contents = get_file_as_string(src_path)
     template = Template(file_contents)
     output_string = template.render(config=config)
