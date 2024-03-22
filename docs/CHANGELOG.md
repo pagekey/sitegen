@@ -1,3 +1,10 @@
+## [2.1.2](https://gitlab.com/pagekey/libs/pagekey-sitegen/compare/2.1.1...2.1.2) (2024-03-22)
+
+
+### Bug Fixes
+
+* Add Mantine to Next template ([c5c4f2d](https://gitlab.com/pagekey/libs/pagekey-sitegen/commit/c5c4f2d427f82aaf74b7dded6f78a3b17930e2e1))
+
 ## [2.1.1](https://gitlab.com/pagekey/libs/pagekey-sitegen/compare/2.1.0...2.1.1) (2024-03-22)
 
 # [2.1.0](https://gitlab.com/pagekey/libs/pagekey-sitegen/compare/2.0.0...2.1.0) (2024-03-22)
