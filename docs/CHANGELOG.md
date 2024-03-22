@@ -1,3 +1,10 @@
+## [2.1.3](https://gitlab.com/pagekey/libs/pagekey-sitegen/compare/2.1.2...2.1.3) (2024-03-22)
+
+
+### Bug Fixes
+
+* Copy file if template parse fails ([4f4e12b](https://gitlab.com/pagekey/libs/pagekey-sitegen/commit/4f4e12b788cf1b958b6682edc8c9b87556dffa13))
+
 ## [2.1.2](https://gitlab.com/pagekey/libs/pagekey-sitegen/compare/2.1.1...2.1.2) (2024-03-22)
 
 
