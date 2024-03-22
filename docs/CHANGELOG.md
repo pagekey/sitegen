@@ -1,3 +1,10 @@
+# [2.1.0](https://gitlab.com/pagekey/libs/pagekey-sitegen/compare/2.0.0...2.1.0) (2024-03-22)
+
+
+### Features
+
+* Add support for separate templates ([545271d](https://gitlab.com/pagekey/libs/pagekey-sitegen/commit/545271de4bcd80a583ec64b81541fc5aa1764687)), closes [#6](https://gitlab.com/pagekey/libs/pagekey-sitegen/issues/6)
+
 # [2.0.0](https://gitlab.com/pagekey/libs/pagekey-docgen/compare/1.0.3...2.0.0) (2024-03-20)
 
 ## [1.0.3](https://gitlab.com/pagekey/libs/pagekey-docgen/compare/1.0.2...1.0.3) (2024-02-27)
