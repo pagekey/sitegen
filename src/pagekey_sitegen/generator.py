@@ -90,11 +90,15 @@ class SiteGenerator:
         if not os.path.exists(dest_dir):
             os.makedirs(dest_dir)
         
-        file_contents = get_file_as_string(src_filename)
-        
-        template = Template(file_contents)
-        output_string = template.render(config=self.config)
-        write_string_to_file(dest_filename, output_string)
+        try:
+            file_contents = get_file_as_string(src_filename)
+
+            template = Template(file_contents)
+            output_string = template.render(config=self.config)
+            write_string_to_file(dest_filename, output_string)
+        except Exception as e:
+            print(f"Warning: Failed to parse template {src_filename}, copying instead")
+            shutil.copy(src_filename, dest_filename)
     
     def _render_source(self, filename: str):
         dirname = os.path.dirname(filename)
