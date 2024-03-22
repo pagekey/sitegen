@@ -1,10 +1,23 @@
 
 
 import os
-from unittest.mock import mock_open, patch
+from unittest.mock import MagicMock, call, mock_open, patch
 
-from pagekey_sitegen.generator import get_file_as_string, get_files_list, write_string_to_file
+from pagekey_sitegen.generator import SiteConfig, SiteGenerator, TemplateName, get_file_as_string, get_files_list, write_string_to_file
 
+
+def sample_site_config():
+    """
+    Sample site config for testing.
+    """
+    return SiteConfig(
+        project='My Project',
+        copyright='My Copyright',
+        author='My Author',
+        release='My Release',
+        package='My Package',
+        template=TemplateName.SPHINX
+    )
 
 class TestSiteConfig:
 
@@ -17,8 +30,24 @@ class TestSiteGenerator:
     def test_init(self):
         pass
 
-    def test_generate(self):
-        pass
+    @patch('pagekey_sitegen.generator.SiteGenerator._build_sphinx')
+    @patch('pagekey_sitegen.generator.SiteGenerator._render_template')
+    @patch('pagekey_sitegen.generator.SiteGenerator._render_source')
+    @patch('pagekey_sitegen.generator.SiteGenerator._setup_build_dir')
+    @patch('pagekey_sitegen.generator.SiteConfig.from_path')
+    @patch('pagekey_sitegen.generator.get_files_list')
+    def test_generate(self,
+        mock_get_files_list,
+        mock_config_from_path, 
+        mock_setup_build_dir,
+        mock_render_source, 
+        mock_render_template,
+        mock_build_sphinx,
+    ):
+        mock_get_files_list.side_effect = [['template1.txt'],['source1.txt']]
+        SiteGenerator('.').generate()
+        mock_render_template.assert_called_with('template1.txt')
+        mock_render_source.assert_called_with('source1.txt')
 
     def test_render_template(self):
         pass
@@ -59,58 +88,3 @@ def test_write_string_to_file(mock_file_open):
 
     mock_file_open.assert_called_with(filename, 'w')
     mock_file_open.return_value.write.assert_called_once_with(data)
-
-
-# These tests may help test the SiteGenerator class:
-    
-# @patch('os.makedirs')
-# def test_create_output_directory_creates_single_directory(mock_mkdirs):
-#     create_output_directory()
-#     mock_mkdirs.assert_called_with('build')
-
-# @patch('shutil.rmtree')
-# @patch("os.path.exists", return_value=True)
-# def test_remove_output_directory_removes_directory_when_exists(mock_exists, mock_rmtree):
-#     remove_output_directory()
-#     mock_exists.assert_called()
-#     mock_rmtree.assert_called_with('build')
-
-# @patch('shutil.rmtree')
-# @patch("os.path.exists", return_value=False)
-# def test_remove_output_directory_does_nothing_when_directory_dne(mock_exists, mock_rmtree):
-#     remove_output_directory()
-#     mock_exists.assert_called()
-#     mock_rmtree.assert_not_called()
-
-# @patch(f'{MODULE_UNDER_TEST}.fileinput')
-# @patch('shutil.copy')
-# def test_render_file_with_valid_file_adds_file_to_output_directory(mock_cp, mock_fileinput):
-#     a_file = 'index.md'
-#     render_file(a_file)
-#     mock_cp.assert_called_with(a_file, 'build/sphinx')
-
-# @patch(f'{MODULE_UNDER_TEST}.fileinput')
-# @patch('os.makedirs')
-# @patch('shutil.copy')
-# def test_render_file_with_nested_file_adds_file_to_output_directory(mock_cp, mock_mkdirs, mock_fileinput):
-#     a_file = 'subsystem/index.md'
-#     render_file(a_file)
-#     mock_mkdirs.assert_called_with('build/sphinx/subsystem', exist_ok=True)
-#     mock_cp.assert_called_with(a_file, 'build/sphinx/subsystem')
-
-# def test_get_repo_root_returns_valid_path():
-#     mock_file_path = "/path/to/mock/core.py"
-#     with patch('__main__.__file__', mock_file_path):
-#         the_root = get_repo_root(mock_file_path)
-#         assert the_root == "/path/to/mock"
-
-# @patch(f'{MODULE_UNDER_TEST}.write_string_to_file')
-# @patch(f'{MODULE_UNDER_TEST}.get_repo_root', return_value='the_root')
-# def test_render_template_works_when_file_valid(mock_get_repo_root, mock_write_string_to_file):
-#     fake_template = "{{ config.author }} is the author"
-#     fake_config = get_fake_config()
-#     with patch(f'{MODULE_UNDER_TEST}.get_file_as_string', return_value=fake_template) as mock_get_file_as_string:
-#         render_template("Makefile", fake_config)
-#         mock_get_repo_root.assert_called()
-#         mock_get_file_as_string.assert_called_with('the_root/templates/Makefile')
-#         mock_write_string_to_file.assert_called_with('build/sphinx/Makefile', fake_config.author + ' is the author')

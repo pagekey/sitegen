@@ -43,9 +43,7 @@ class SiteGenerator:
         self.templates_dir = os.path.join(package_root, 'templates', self.config.template.value)
     def generate(self):
         # Get a fresh build dir
-        if os.path.exists('build'):
-            shutil.rmtree('build')
-        os.makedirs('build')
+        self._setup_build_dir()
 
         # Walk directories to get file lists
         template_files = get_files_list(self.templates_dir)
@@ -53,25 +51,37 @@ class SiteGenerator:
 
         # Render templates
         for template in template_files:
-            self.render_template(template)
+            self._render_template(template)
 
         # Render source files
         for cur_file in source_files:
-            self.render_source(cur_file)
+            self._render_source(cur_file)
 
         # Call whatever executable to generate the site
-        os.chdir(f'build/{self.config.template.value}')
         if self.config.template == TemplateName.SPHINX:
-            os.system('make html')
-            # Move the generated site to the top level of the build directory
-            shutil.move('_build/html', '..')
+            self._build_sphinx()
         elif self.config.template == TemplateName.NEXT:
-            os.system('npm i')
-            os.system('npm run build')
-            os.system('npm run export')
-            shutil.move('out', '../html')
+            self._build_next()
     
-    def render_template(self, filename: str):
+    def _build_sphinx(self):
+        os.chdir(f'build/{self.config.template.value}')
+        os.system('make html')
+        # Move the generated site to the top level of the build directory
+        shutil.move('_build/html', '..')
+
+    def _build_next(self):
+        os.chdir(f'build/{self.config.template.value}')
+        os.system('npm i')
+        os.system('npm run build')
+        os.system('npm run export')
+        shutil.move('out', '../html')
+
+    def _setup_build_dir(self):
+        if os.path.exists('build'):
+            shutil.rmtree('build')
+        os.makedirs('build')
+
+    def _render_template(self, filename: str):
         src_filename = filename
         relative_template_path = filename.replace(self.templates_dir + '/', '')
         dest_filename = os.path.join('build', self.config.template.value, relative_template_path)
@@ -86,7 +96,7 @@ class SiteGenerator:
         output_string = template.render(config=self.config)
         write_string_to_file(dest_filename, output_string)
     
-    def render_source(self, filename: str):
+    def _render_source(self, filename: str):
         dirname = os.path.dirname(filename)
         if len(dirname) < 1:
             # File is at the top-level of the repo - keep it simple
