@@ -1,3 +1,5 @@
+## [2.1.1](https://gitlab.com/pagekey/libs/pagekey-sitegen/compare/2.1.0...2.1.1) (2024-03-22)
+
 # [2.1.0](https://gitlab.com/pagekey/libs/pagekey-sitegen/compare/2.0.0...2.1.0) (2024-03-22)
 
 
