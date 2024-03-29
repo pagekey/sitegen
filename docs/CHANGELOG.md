@@ -1,3 +1,10 @@
+# [3.1.0](https://gitlab.com/pagekey/libs/pagekey-sitegen/compare/3.0.0...3.1.0) (2024-03-29)
+
+
+### Features
+
+* Directly mirror directory structure for Next ([ff22965](https://gitlab.com/pagekey/libs/pagekey-sitegen/commit/ff22965fa0893390ebcf33a59aa4e66653f062c7)), closes [#11](https://gitlab.com/pagekey/libs/pagekey-sitegen/issues/11)
+
 # [3.0.0](https://gitlab.com/pagekey/libs/pagekey-sitegen/compare/2.1.3...3.0.0) (2024-03-29)
 
 ## [2.1.3](https://gitlab.com/pagekey/libs/pagekey-sitegen/compare/2.1.2...2.1.3) (2024-03-22)
